@@ -3,6 +3,7 @@ import { newReadRepository, newWriteRepository } from "./repository";
 import { config } from "../../shared";
 import bodyParser from "body-parser";
 import { newService, Service } from "./service";
+import { CreateUserRequest } from "./types";
 
 export class App {
   private app: Application;
@@ -31,12 +32,14 @@ export class App {
     });
 
     this.app.post("/users", async (req, res) => {
-      const { name } = req.body;
+      const { username } = req.body as CreateUserRequest;
       try {
-        await this.service.createNewUser(name);
-        res.status(201).send("user created");
+        const user = await this.service.createNewUser(username);
+        res
+          .status(201)
+          .send({ message: "user has been created", data: { user } });
       } catch (error) {
-        res.status(500).send("something went wrong");
+        res.status(500).send({ message: "something went wrong" });
       }
     });
   }

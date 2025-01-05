@@ -16,6 +16,7 @@ export class ServiceImpl {
       await this.writeRepo.createUser(user);
     } catch (error) {
       console.log("could not create new user because: ", error);
+      throw error;
     }
     return user;
   }

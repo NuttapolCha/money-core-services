@@ -1,8 +1,7 @@
 export const GET_USER = `
     SELECT 
         id,
-        name,
-        gems,
+        username,
         created_at,
         updated_at
     FROM user
@@ -12,7 +11,6 @@ export const GET_USER = `
 export type GetUserQueryResult = {
   id: string;
   name: string;
-  gems: number;
   created_at: Date;
   updated_at: Date;
 };

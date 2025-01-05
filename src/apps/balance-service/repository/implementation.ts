@@ -43,7 +43,6 @@ export class ReadRepositoryImpl {
       // result rows should have length of 1
       return new User(rows[0].name, {
         id: rows[0].id,
-        gems: rows[0].gems,
         createdAt: rows[0].created_at,
         updatedAt: rows[0].updated_at,
       });
