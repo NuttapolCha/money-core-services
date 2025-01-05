@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: money_core_postgres
+    environment:
+      POSTGRES_USER: money
+      POSTGRES_PASSWORD: money
+      POSTGRES_DB: money_core
+    ports:
+      - "6543:5432"
+    volumes:
+      - money_core_postgres_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - money_core_services
+
+volumes:
+  money_core_postgres_data:
+
+networks:
+  money_core_services:
+    name: money_core_services
+    driver: bridge
