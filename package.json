@@ -9,7 +9,11 @@
     "start:transfer": "node ./dist/apps/transfer-service/index.js",
     "dev:balance": "nodemon --watch ./src/apps/balance-service ./src/apps/balance-service/index.ts",
     "dev:transaction": "nodemon --watch ./src/apps/transaction-service ./src/apps/transaction-service/index.ts",
-    "dev:transfer": "nodemon --watch ./src/apps/transfer-service ./src/apps/transfer-service/index.ts"
+    "dev:transfer": "nodemon --watch ./src/apps/transfer-service ./src/apps/transfer-service/index.ts",
+    "db:up": "docker compose -f docker-compose-db.yaml up -d",
+    "db:down-volumes": "docker compose -f docker-compose-db.yaml down --volumes",
+    "schema:gen": "ts-node ./src/cmd/schemaGen.ts",
+    "schema:up": "ts-node ./src/cmd/schemaUp.ts"
   },
   "keywords": [],
   "author": "",
