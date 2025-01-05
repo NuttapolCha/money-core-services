@@ -3,7 +3,6 @@ import { newReadRepository, newWriteRepository } from "./repository";
 import { config } from "../../shared";
 import bodyParser from "body-parser";
 import { newService, Service } from "./service";
-import { CreateUserRequest } from "./types";
 
 export class App {
   private app: Application;
