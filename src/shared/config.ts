@@ -4,14 +4,14 @@ dotenv.config();
 
 export const config = {
   services: {
-    balance: {
-      port: parseInt(process.env.BALANCE_SERVICE_PORT || "3010", 10),
+    user: {
+      port: parseInt(process.env.USER_SERVICE_PORT || "3010", 10),
     },
     transaction: {
-      port: parseInt(process.env.BALANCE_SERVICE_PORT || "3020", 10),
+      port: parseInt(process.env.USER_SERVICE_PORT || "3020", 10),
     },
     transfer: {
-      port: parseInt(process.env.BALANCE_SERVICE_PORT || "3030", 10),
+      port: parseInt(process.env.USER_SERVICE_PORT || "3030", 10),
     },
   },
   db: {

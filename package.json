@@ -4,10 +4,10 @@
   "description": "",
   "scripts": {
     "build:all": "npx tsc",
-    "start:balance": "node ./dist/apps/balance-service/index.js",
+    "start:user": "node ./dist/apps/user-service/index.js",
     "start:transaction": "node ./dist/apps/transaction-service/index.js",
     "start:transfer": "node ./dist/apps/transfer-service/index.js",
-    "dev:balance": "nodemon --watch ./src/apps/balance-service ./src/apps/balance-service/index.ts",
+    "dev:user": "nodemon --watch ./src/apps/user-service ./src/apps/user-service/index.ts",
     "dev:transaction": "nodemon --watch ./src/apps/transaction-service ./src/apps/transaction-service/index.ts",
     "dev:transfer": "nodemon --watch ./src/apps/transfer-service ./src/apps/transfer-service/index.ts",
     "db:up": "docker compose -f docker-compose-db.yaml up -d",

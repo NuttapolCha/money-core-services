@@ -28,7 +28,7 @@ export class App {
 
   private setupRoutes() {
     this.app.get("/healthz", (req, res) => {
-      res.send("balance service healthy");
+      res.send("user service healthy");
     });
 
     this.app.post("/users", async (req, res) => {
@@ -45,9 +45,9 @@ export class App {
   }
 
   public serveAPI() {
-    this.app.listen(config.services.balance.port, () => {
+    this.app.listen(config.services.user.port, () => {
       console.log(
-        `server started at localhost:${config.services.balance.port}`
+        `server started at localhost:${config.services.user.port}`
       );
     });
   }
