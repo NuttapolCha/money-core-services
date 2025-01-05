@@ -2,7 +2,7 @@ import { Pool } from "pg";
 import { User } from "../../../shared";
 import { CREATE_USER_QUERY, GET_USER, GetUserQueryResult } from "./query";
 
-export class writeRepositoryImpl {
+export class WriteRepositoryImpl {
   private pool: Pool;
 
   constructor(pool: Pool) {
@@ -23,6 +23,14 @@ export class writeRepositoryImpl {
     } finally {
       client.release();
     }
+  }
+}
+
+export class ReadRepositoryImpl {
+  private pool: Pool;
+
+  constructor(pool: Pool) {
+    this.pool = pool;
   }
 
   public async getUser(id: string): Promise<User> {

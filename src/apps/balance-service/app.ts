@@ -1,15 +1,22 @@
 import express, { Application } from "express";
-import { WriteRepository } from "./repository";
+import { newReadRepository, newWriteRepository } from "./repository";
 import { config } from "../../shared";
 import bodyParser from "body-parser";
+import { newService, Service } from "./service";
 
 export class App {
   private app: Application;
-  private writeRepo: WriteRepository;
+  private service: Service;
 
-  constructor(writeRepo: WriteRepository) {
-    this.app = express();
-    this.writeRepo = writeRepo;
+  constructor() {
+    const app = express();
+
+    const readRepo = newReadRepository();
+    const writeRepo = newWriteRepository();
+    const service = newService(readRepo, writeRepo);
+
+    this.app = app;
+    this.service = service;
     this.setupMiddlewares();
     this.setupRoutes();
   }
@@ -23,9 +30,14 @@ export class App {
       res.send("balance service healthy");
     });
 
-    this.app.post("/users", (req, res) => {
-      console.log("req.body=", req.body);
-      res.send(req.body);
+    this.app.post("/users", async (req, res) => {
+      const { name } = req.body;
+      try {
+        await this.service.createNewUser(name);
+        res.status(201).send("user created");
+      } catch (error) {
+        res.status(500).send("something went wrong");
+      }
     });
   }
 

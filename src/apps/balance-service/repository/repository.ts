@@ -1,13 +1,9 @@
 import { Pool } from "pg";
 import { config, User } from "../../../shared";
-import { writeRepositoryImpl } from "./implementation";
+import { ReadRepositoryImpl, WriteRepositoryImpl } from "./implementation";
 
 export interface WriteRepository {
   createUser(user: User): Promise<void>;
-}
-
-export interface ReadRepository {
-  getUser(userId: string): Promise<User>;
 }
 
 export const newWriteRepository = (): WriteRepository => {
@@ -19,5 +15,21 @@ export const newWriteRepository = (): WriteRepository => {
     user,
     password,
   });
-  return new writeRepositoryImpl(pool);
+  return new WriteRepositoryImpl(pool);
+};
+
+export interface ReadRepository {
+  getUser(userId: string): Promise<User>;
+}
+
+export const newReadRepository = (): ReadRepository => {
+  const { host, port, database, user, password } = config.db.writer;
+  const pool = new Pool({
+    host,
+    port,
+    database,
+    user,
+    password,
+  });
+  return new ReadRepositoryImpl(pool);
 };
