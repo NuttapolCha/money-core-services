@@ -8,10 +8,10 @@ export const config = {
       port: parseInt(process.env.USER_SERVICE_PORT || "3010", 10),
     },
     gems: {
-      port: parseInt(process.env.USER_SERVICE_PORT || "3020", 10),
+      port: parseInt(process.env.GEMS_SERVICE_PORT || "3020", 10),
     },
     transfer: {
-      port: parseInt(process.env.USER_SERVICE_PORT || "3030", 10),
+      port: parseInt(process.env.TRANSFER_SERVICE_PORT || "3030", 10),
     },
   },
   db: {

@@ -3,7 +3,7 @@ export const GET_GEMS_BY_USER_ID_QUERY = `
         id,
         user_id,
         balance,
-        created_at.
+        created_at,
         updated_at
     FROM gems
     WHERE user_id = $1

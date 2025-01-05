@@ -30,20 +30,24 @@ export class App {
       res.send("gems service healthy");
     });
 
-    this.app.post("/balance", async (req, res) => {
+    this.app.get("/balance", async (req, res) => {
       const userId = req.headers["user-id"] as string;
       if (!userId) {
         res.status(401).send({ messsage: "user-id is required in header" });
       }
 
-      const gems = await this.service.viewGems(userId);
-      res.send({ message: "success", data: { gems } });
+      try {
+        const gems = await this.service.viewGems(userId);
+        res.send({ message: "success", data: { gems } });
+      } catch (error) {
+        res.status(500).send({ message: "something went wrong" });
+      }
     });
   }
 
   public serveAPI() {
-    this.app.listen(config.services.user.port, () => {
-      console.log(`server started at localhost:${config.services.user.port}`);
+    this.app.listen(config.services.gems.port, () => {
+      console.log(`server started at localhost:${config.services.gems.port}`);
     });
   }
 }
