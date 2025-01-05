@@ -7,7 +7,7 @@ export const config = {
     user: {
       port: parseInt(process.env.USER_SERVICE_PORT || "3010", 10),
     },
-    transaction: {
+    gems: {
       port: parseInt(process.env.USER_SERVICE_PORT || "3020", 10),
     },
     transfer: {

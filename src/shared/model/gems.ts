@@ -1,29 +1,28 @@
 import { v4 } from "uuid";
-import { Gems } from ".";
 
-export type UserConstructorOpts = {
+export type GemsConstructorOpts = {
   id?: string;
-  gems?: Gems;
+  balance?: number;
   createdAt?: Date;
   updatedAt?: Date;
 };
 
-export class User {
+export class Gems {
   id: string;
-  username: string;
-  gems: Gems;
+  userId: string;
+  balance: number;
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(username: string, opts?: UserConstructorOpts) {
+  constructor(userId: string, opts?: GemsConstructorOpts) {
     this.id = opts?.id ? opts.id : v4();
-    this.username = username;
-    this.gems = opts?.gems ? opts.gems : new Gems(this.id);
+    this.userId = userId;
+    this.balance = opts?.balance ? opts.balance : 0;
     this.createdAt = opts?.createdAt ? opts.createdAt : new Date();
     this.updatedAt = opts?.updatedAt ? opts.updatedAt : new Date();
   }
 
   public toSqlValue() {
-    return [this.id, this.username, this.createdAt, this.updatedAt];
+    return [this.id, this.userId, this.balance, this.createdAt, this.updatedAt];
   }
 }
