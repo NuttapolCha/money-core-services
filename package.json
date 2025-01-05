@@ -1,0 +1,29 @@
+{
+  "name": "money-core-services",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:all": "npx tsc",
+    "start:balance": "node ./dist/apps/balance-service/index.js",
+    "start:transaction": "node ./dist/apps/transaction-service/index.js",
+    "start:transfer": "node ./dist/apps/transfer-service/index.js",
+    "dev:balance": "nodemon --watch ./src/apps/balance-service ./src/apps/balance-service/index.ts",
+    "dev:transaction": "nodemon --watch ./src/apps/transaction-service ./src/apps/transaction-service/index.ts",
+    "dev:transfer": "nodemon --watch ./src/apps/transfer-service ./src/apps/transfer-service/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
