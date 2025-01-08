@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { config, Gems, User } from "../../../shared";
+import { config, GemAccounts, User } from "../../../shared";
 import { ReadRepositoryImpl, WriteRepositoryImpl } from "./implementation";
 
 export interface WriteRepository {}
@@ -17,7 +17,7 @@ export const newWriteRepository = (): WriteRepository => {
 };
 
 export interface ReadRepository {
-  getGemsByUserId(userId: string): Promise<Gems>;
+  getGemsByUserId(userId: string): Promise<GemAccounts>;
 }
 
 export const newReadRepository = (): ReadRepository => {

@@ -7,7 +7,7 @@ export type GemsConstructorOpts = {
   updatedAt?: Date;
 };
 
-export class Gems {
+export class GemAccounts {
   id: string;
   userId: string;
   balance: number;

@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { Gems, User } from "../../../shared";
+import { GemAccounts, User } from "../../../shared";
 import { GET_GEMS_BY_USER_ID_QUERY, GetGemsQueryResult } from "./query";
 
 export class WriteRepositoryImpl {
@@ -17,7 +17,7 @@ export class ReadRepositoryImpl {
     this.pool = pool;
   }
 
-  public async getGemsByUserId(userId: string): Promise<Gems> {
+  public async getGemsByUserId(userId: string): Promise<GemAccounts> {
     const client = await this.pool.connect();
     try {
       await client.query("BEGIN");
@@ -27,7 +27,7 @@ export class ReadRepositoryImpl {
       );
 
       // result rows should have length of 1
-      return new Gems(userId, {
+      return new GemAccounts(userId, {
         id: rows[0].id,
         balance: rows[0].balance,
         createdAt: rows[0].created_at,
