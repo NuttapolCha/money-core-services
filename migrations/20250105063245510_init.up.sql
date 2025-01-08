@@ -5,7 +5,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE gems (
+CREATE TABLE gem_accounts (
     id CHAR(36) PRIMARY KEY,
     user_id CHAR(36),
     balance BIGINT NOT NULL DEFAULT 0,
@@ -14,13 +14,20 @@ CREATE TABLE gems (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE gems_transactions (
+CREATE TABLE gem_transactions (
     id CHAR(36) PRIMARY KEY,
-    from_user_id CHAR(36) NOT NULL,
-    to_user_id CHAR(36) NOT NULL,
+    type varchar(31) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE gem_ledger_entries (
+    id CHAR(36) PRIMARY KEY,
+    gem_transaction_id CHAR(36),
+    gem_account_id CHAR(36),
     amount BIGINT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    FOREIGN KEY (from_user_id) REFERENCES users(id),
-    FOREIGN KEY (to_user_id) REFERENCES users(id)
-);
+    FOREIGN KEY (gem_transaction_id) REFERENCES gem_transactions(id),
+    FOREIGN KEY (gem_account_id) REFERENCES gem_accounts(id)
+)
 
