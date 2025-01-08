@@ -1,8 +1,10 @@
 import { Pool } from "pg";
-import { config, GemAccounts, User } from "../../../shared";
+import { config, GemAccounts, GemsTransfer } from "../../../shared";
 import { ReadRepositoryImpl, WriteRepositoryImpl } from "./implementation";
 
-export interface WriteRepository {}
+export interface WriteRepository {
+  createGemsTransferTransaction(gemsTransfer: GemsTransfer): Promise<void>;
+}
 
 export const newWriteRepository = (): WriteRepository => {
   const { host, port, database, user, password } = config.db.writer;

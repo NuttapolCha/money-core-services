@@ -1,3 +1,4 @@
+import { GemsTransfer } from "../../../shared";
 import { ReadRepository, WriteRepository } from "../repository";
 
 export class ServiceImpl {
@@ -15,6 +16,20 @@ export class ServiceImpl {
       return gems.balance;
     } catch (error) {
       console.log("could not view gems because: ", error);
+      throw error;
+    }
+  }
+
+  public async transferGems(
+    fromUserId: string,
+    toUserId: string,
+    amount: number
+  ): Promise<void> {
+    try {
+      const gemsTransfer = new GemsTransfer(fromUserId, toUserId, amount);
+      await this.writeRepo.createGemsTransferTransaction(gemsTransfer);
+    } catch (error) {
+      console.log("could not transfer gems because: ", error);
       throw error;
     }
   }

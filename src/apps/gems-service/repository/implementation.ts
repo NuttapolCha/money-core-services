@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { GemAccounts, User } from "../../../shared";
+import { GemAccounts, GemsTransfer, User } from "../../../shared";
 import { GET_GEMS_BY_USER_ID_QUERY, GetGemsQueryResult } from "./query";
 
 export class WriteRepositoryImpl {
@@ -7,6 +7,22 @@ export class WriteRepositoryImpl {
 
   constructor(pool: Pool) {
     this.pool = pool;
+  }
+
+  public async createGemsTransferTransaction(
+    gemsTransfer: GemsTransfer
+  ): Promise<void> {
+    const client = await this.pool.connect();
+    try {
+      await client.query("BEGIN");
+      // TODO
+      await client.query("COMMIT");
+    } catch (error) {
+      throw error;
+    } finally {
+      await client.query("ROLLBACK");
+      client.release();
+    }
   }
 }
 

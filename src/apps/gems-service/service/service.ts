@@ -4,6 +4,11 @@ import { ServiceImpl } from "./implementation";
 
 export interface Service {
   viewGems(userId: string): Promise<number>;
+  transferGems(
+    fromUserId: string,
+    toUserId: string,
+    amount: number
+  ): Promise<void>;
 }
 
 export const newService = (

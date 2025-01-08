@@ -16,3 +16,13 @@ export type GetGemsQueryResult = {
   created_at: Date;
   updated_at: Date;
 };
+
+export const UPDATE_GEMS = `
+  UPDATE
+    gem_accounts
+  SET 
+    balance = $1,
+    updated_at = $2,
+    created_at = $3
+  WHERE id = $4
+`;
