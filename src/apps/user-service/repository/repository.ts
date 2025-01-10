@@ -18,7 +18,9 @@ export const newWriteRepository = (): WriteRepository => {
   return new WriteRepositoryImpl(pool);
 };
 
-export interface ReadRepository {}
+export interface ReadRepository {
+  getUser(id: string): Promise<User>;
+}
 
 export const newReadRepository = (): ReadRepository => {
   const { host, port, database, user, password } = config.db.writer;

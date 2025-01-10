@@ -4,6 +4,7 @@ import { ServiceImpl } from "./implementation";
 
 export interface Service {
   createNewUser(name: string): Promise<User>;
+  getUser(id: string): Promise<User>;
 }
 
 export const newService = (

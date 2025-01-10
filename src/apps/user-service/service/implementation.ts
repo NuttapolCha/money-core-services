@@ -20,4 +20,14 @@ export class ServiceImpl {
     }
     return user;
   }
+
+  public async getUser(id: string): Promise<User> {
+    try {
+      const user = await this.readRepo.getUser(id);
+      return user;
+    } catch (error) {
+      console.log("could not get user because: ", error);
+      throw error;
+    }
+  }
 }

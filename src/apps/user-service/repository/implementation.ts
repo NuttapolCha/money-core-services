@@ -1,6 +1,11 @@
 import { Pool } from "pg";
-import { User } from "../../../shared";
-import { CREATE_GEM_ACCOUNT_QUERY, CREATE_USER_QUERY } from "./query";
+import { GemAccount, User } from "../../../shared";
+import {
+  CREATE_GEM_ACCOUNT_QUERY,
+  CREATE_USER_QUERY,
+  GET_USER_QUERY,
+  GetUserQueryResult,
+} from "./query";
 
 export class WriteRepositoryImpl {
   private pool: Pool;
@@ -33,5 +38,33 @@ export class ReadRepositoryImpl {
 
   constructor(pool: Pool) {
     this.pool = pool;
+  }
+
+  public async getUser(id: string): Promise<User> {
+    const client = await this.pool.connect();
+
+    try {
+      await client.query("BEGIN");
+      const { rows } = await client.query<GetUserQueryResult>(GET_USER_QUERY, [
+        id,
+      ]);
+      const user = new User(rows[0].username, {
+        id: rows[0].id,
+        gemAccount: new GemAccount(rows[0].id, {
+          id: rows[0].account_id,
+          balance: Number(rows[0].balance),
+          createdAt: rows[0].gem_account_created_at,
+          updatedAt: rows[0].gem_account_updated_at,
+        }),
+        createdAt: rows[0].created_at,
+        updatedAt: rows[0].updated_at,
+      });
+      return user;
+    } catch (error) {
+      throw error;
+    } finally {
+      await client.query("ROLLBACK");
+      client.release();
+    }
   }
 }
