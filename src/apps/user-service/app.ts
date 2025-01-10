@@ -41,7 +41,7 @@ export class App {
 
       try {
         const user = await this.service.getUser(userId);
-        res.status(200).send({ message: "success", data: user });
+        res.status(200).send({ message: "success", data: user.toResponse() });
         return;
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });
@@ -55,7 +55,7 @@ export class App {
         const user = await this.service.createNewUser(username);
         res
           .status(201)
-          .send({ message: "user has been created", data: { user } });
+          .send({ message: "user has been created", data: user.toResponse() });
         return;
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });

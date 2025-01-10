@@ -17,7 +17,7 @@ export class WriteRepositoryImpl {
   public async createUser(user: User): Promise<void> {
     const client = await this.pool.connect();
     const userValues = user.toSqlValue();
-    const gemAccountValues = user.gemAccount.toSqlValue();
+    const gemAccountValues = user.gemAccount?.toSqlValue();
 
     try {
       await client.query("BEGIN");
@@ -50,12 +50,7 @@ export class ReadRepositoryImpl {
       ]);
       const user = new User(rows[0].username, {
         id: rows[0].id,
-        gemAccount: new GemAccount(rows[0].id, {
-          id: rows[0].account_id,
-          balance: Number(rows[0].balance),
-          createdAt: rows[0].gem_account_created_at,
-          updatedAt: rows[0].gem_account_updated_at,
-        }),
+        gemAccount: null,
         createdAt: rows[0].created_at,
         updatedAt: rows[0].updated_at,
       });

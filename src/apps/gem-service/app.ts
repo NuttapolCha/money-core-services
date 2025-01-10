@@ -40,8 +40,11 @@ export class App {
       }
 
       try {
-        const balance = await this.service.viewGem(userId);
-        res.send({ message: "success", data: { balance } });
+        const account = await this.service.getGemAccount(userId);
+        res.send({
+          message: "success",
+          data: account.toResponse(),
+        });
         return;
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });

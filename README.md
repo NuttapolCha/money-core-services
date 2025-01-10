@@ -6,7 +6,7 @@
 
 ## TODO
 
-1. validate request
-2. autentication and middleware
-3. logger with JSON structure
+1. logger with JSON structure
+1. validate request and appropriate status code
+1. autentication and middleware
 

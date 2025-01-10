@@ -1,9 +1,9 @@
-import { User } from "../../../shared";
+import { GemAccount, User } from "../../../shared";
 import { ReadRepository, WriteRepository } from "../repository";
 import { ServiceImpl } from "./implementation";
 
 export interface Service {
-  viewGem(userId: string): Promise<number>;
+  getGemAccount(userId: string): Promise<GemAccount>;
   transferGem(
     fromUserId: string,
     toUserId: string,

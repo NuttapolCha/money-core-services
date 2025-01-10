@@ -1,3 +1,4 @@
+import { GemAccount } from "../../../shared";
 import { ReadRepository, WriteRepository } from "../repository";
 
 export class ServiceImpl {
@@ -9,10 +10,10 @@ export class ServiceImpl {
     this.writeRepo = writeRepo;
   }
 
-  public async viewGem(userId: string): Promise<number> {
+  public async getGemAccount(userId: string): Promise<GemAccount> {
     try {
       const gemAccount = await this.readRepo.getGemAccountByUserId(userId);
-      return gemAccount.balance;
+      return gemAccount;
     } catch (error) {
       console.log("could not view gem because: ", error);
       throw error;

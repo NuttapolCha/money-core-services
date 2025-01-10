@@ -39,4 +39,11 @@ export class GemAccount {
   public toSqlValue() {
     return [this.id, this.userId, this.balance, this.createdAt, this.updatedAt];
   }
+
+  public toResponse() {
+    return {
+      gemAccountId: this.id,
+      balance: this.balance,
+    };
+  }
 }
