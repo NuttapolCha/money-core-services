@@ -1,4 +1,4 @@
-export const CREATE_GEMS_QUERY = `
+export const CREATE_GEM_ACCOUNT_QUERY = `
     INSERT INTO gem_accounts
         (id, user_id, balance, created_at, updated_at)
     VALUES

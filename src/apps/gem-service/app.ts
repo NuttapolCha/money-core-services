@@ -3,7 +3,7 @@ import { newReadRepository, newWriteRepository } from "./repository";
 import { config } from "../../shared";
 import bodyParser from "body-parser";
 import { newService, Service } from "./service";
-import { TransferGemsRequest } from "./types";
+import { TransferGemRequest } from "./types";
 
 export class App {
   private app: Application;
@@ -28,7 +28,7 @@ export class App {
 
   private setupRoutes() {
     this.app.get("/healthz", (req, res) => {
-      res.send("gems service healthy");
+      res.send("gem-service healthy");
       return;
     });
 
@@ -40,8 +40,8 @@ export class App {
       }
 
       try {
-        const gems = await this.service.viewGems(userId);
-        res.send({ message: "success", data: { gems } });
+        const balance = await this.service.viewGem(userId);
+        res.send({ message: "success", data: { gem: balance } });
         return;
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });
@@ -49,14 +49,14 @@ export class App {
       }
     });
 
-    this.app.post("/transfer-gems", async (req, res) => {
+    this.app.post("/transfer-gem", async (req, res) => {
       const userId = req.headers["user-id"] as string;
       if (!userId) {
         res.status(401).send({ messsage: "user-id is required in header" });
         return;
       }
 
-      const { toUserId, amount } = req.body as TransferGemsRequest;
+      const { toUserId, amount } = req.body as TransferGemRequest;
       if (amount <= 0) {
         res
           .status(422)
@@ -65,7 +65,7 @@ export class App {
       }
 
       try {
-        await this.service.transferGems(userId, toUserId, amount);
+        await this.service.transferGem(userId, toUserId, amount);
         res.status(200).send({ message: "success" });
         return;
       } catch (error) {
@@ -76,8 +76,8 @@ export class App {
   }
 
   public serveAPI() {
-    this.app.listen(config.services.gems.port, () => {
-      console.log(`server started at localhost:${config.services.gems.port}`);
+    this.app.listen(config.services.gem.port, () => {
+      console.log(`server started at localhost:${config.services.gem.port}`);
     });
   }
 }

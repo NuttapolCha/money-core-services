@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 import { User } from "../../../shared";
-import { CREATE_GEMS_QUERY, CREATE_USER_QUERY } from "./query";
+import { CREATE_GEM_ACCOUNT_QUERY, CREATE_USER_QUERY } from "./query";
 
 export class WriteRepositoryImpl {
   private pool: Pool;
@@ -12,12 +12,12 @@ export class WriteRepositoryImpl {
   public async createUser(user: User): Promise<void> {
     const client = await this.pool.connect();
     const userValues = user.toSqlValue();
-    const gemsValues = user.gemsAccount.toSqlValue();
+    const gemAccountValues = user.gemAccount.toSqlValue();
 
     try {
       await client.query("BEGIN");
       await client.query(CREATE_USER_QUERY, userValues);
-      await client.query(CREATE_GEMS_QUERY, gemsValues);
+      await client.query(CREATE_GEM_ACCOUNT_QUERY, gemAccountValues);
       await client.query("COMMIT");
     } catch (error) {
       await client.query("ROLLBACK");

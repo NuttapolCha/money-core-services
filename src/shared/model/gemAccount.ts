@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 
-export type GemsConstructorOpts = {
+export type GemAccountConstructorOpts = {
   id?: string;
   balance?: number;
   createdAt?: Date;
@@ -14,10 +14,10 @@ export class GemAccount {
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(userId: string, opts?: GemsConstructorOpts) {
+  constructor(userId: string, opts?: GemAccountConstructorOpts) {
     this.id = opts?.id ? opts.id : v4();
     this.userId = userId;
-    this.balance = opts?.balance ? opts.balance : 1000;
+    this.balance = opts?.balance || opts?.balance === 0 ? opts.balance : 1000;
     this.createdAt = opts?.createdAt ? opts.createdAt : new Date();
     this.updatedAt = opts?.updatedAt ? opts.updatedAt : new Date();
   }
@@ -28,9 +28,7 @@ export class GemAccount {
   }
 
   public addBalance(amount: number) {
-    console.log("curr bal = ", this.balance);
     this.balance += amount;
-    console.log("after bal = ", this.balance);
     this.updatedAt = new Date();
   }
 

@@ -3,8 +3,8 @@ import { ReadRepository, WriteRepository } from "../repository";
 import { ServiceImpl } from "./implementation";
 
 export interface Service {
-  viewGems(userId: string): Promise<number>;
-  transferGems(
+  viewGem(userId: string): Promise<number>;
+  transferGem(
     fromUserId: string,
     toUserId: string,
     amount: number

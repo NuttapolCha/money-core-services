@@ -1,2 +1,2 @@
-export * from "./gems";
+export * from "./gemAccount";
 export * from "./user";

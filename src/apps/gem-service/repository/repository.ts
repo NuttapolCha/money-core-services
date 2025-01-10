@@ -3,7 +3,7 @@ import { config, GemAccount } from "../../../shared";
 import { ReadRepositoryImpl, WriteRepositoryImpl } from "./implementation";
 
 export interface WriteRepository {
-  createGemsTransferTransaction(
+  createGemTransferTransaction(
     fromUserId: string,
     toUserId: string,
     amount: number
@@ -23,7 +23,7 @@ export const newWriteRepository = (): WriteRepository => {
 };
 
 export interface ReadRepository {
-  getGemsByUserId(userId: string): Promise<GemAccount>;
+  getGemAccountByUserId(userId: string): Promise<GemAccount>;
 }
 
 export const newReadRepository = (): ReadRepository => {

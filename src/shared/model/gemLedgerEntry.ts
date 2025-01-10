@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { GemAccount } from "./gems";
+import { GemAccount } from "./gemAccount";
 
 export class GemLedgerEntry {
   id: string;

@@ -2,9 +2,9 @@ import { Pool, PoolClient } from "pg";
 import { GemAccount, GemTransaction, User } from "../../../shared";
 import {
   CREATE_GEM_TRANSACTION_QUERY,
-  GET_GEMS_BY_USER_ID_QUERY,
-  GetGemsQueryResult,
-  SELECT_GEMS_FOR_UPDATE_QUERY,
+  GET_GEM_ACCOUNT_BY_USER_ID_QUERY,
+  GetGemAccountQueryResult,
+  SELECT_GEM_ACCOUNTS_FOR_UPDATE_QUERY,
   UPDATE_GEM_ACCOUNT_QUERY,
 } from "./query";
 import { CREATE_GEM_LEDGER_ENTIRES_QUERY } from "./query/gemLedgerEntries";
@@ -16,7 +16,7 @@ export class WriteRepositoryImpl {
     this.pool = pool;
   }
 
-  public async createGemsTransferTransaction(
+  public async createGemTransferTransaction(
     fromUserId: string,
     toUserId: string,
     amount: number
@@ -32,12 +32,6 @@ export class WriteRepositoryImpl {
           fromUserId,
           toUserId
         );
-
-      console.log("senderAccount balance type", typeof senderAccount.balance);
-      console.log(
-        "recieverAccount balance type",
-        typeof recieverAccount.balance
-      );
 
       const transaction = GemTransaction.NewTransferTransaction(
         senderAccount,
@@ -80,12 +74,13 @@ export class WriteRepositoryImpl {
     let senderAccount: GemAccount | null = null;
     let recieverAccount: GemAccount | null = null;
 
-    const { rows } = await client.query<GetGemsQueryResult>(
-      SELECT_GEMS_FOR_UPDATE_QUERY,
+    const { rows } = await client.query<GetGemAccountQueryResult>(
+      SELECT_GEM_ACCOUNTS_FOR_UPDATE_QUERY,
       [fromUserId, toUserId]
     );
     for (const row of rows) {
       if (row.user_id === fromUserId) {
+        console.log("sender account row.balance =", row.balance);
         senderAccount = new GemAccount(row.user_id, {
           id: row.id,
           balance: Number(row.balance),
@@ -120,12 +115,12 @@ export class ReadRepositoryImpl {
     this.pool = pool;
   }
 
-  public async getGemsByUserId(userId: string): Promise<GemAccount> {
+  public async getGemAccountByUserId(userId: string): Promise<GemAccount> {
     const client = await this.pool.connect();
     try {
       await client.query("BEGIN");
-      const { rows } = await client.query<GetGemsQueryResult>(
-        GET_GEMS_BY_USER_ID_QUERY,
+      const { rows } = await client.query<GetGemAccountQueryResult>(
+        GET_GEM_ACCOUNT_BY_USER_ID_QUERY,
         [userId]
       );
 

@@ -6,14 +6,14 @@ const GEM_ACCOUNTS_FIELDS_LIST = `
   updated_at
 `;
 
-export const GET_GEMS_BY_USER_ID_QUERY = `
+export const GET_GEM_ACCOUNT_BY_USER_ID_QUERY = `
     SELECT
         ${GEM_ACCOUNTS_FIELDS_LIST}
     FROM gem_accounts
     WHERE user_id = $1
 `;
 
-export const SELECT_GEMS_FOR_UPDATE_QUERY = `
+export const SELECT_GEM_ACCOUNTS_FOR_UPDATE_QUERY = `
     SELECT
       ${GEM_ACCOUNTS_FIELDS_LIST}
     FROM gem_accounts
@@ -21,7 +21,7 @@ export const SELECT_GEMS_FOR_UPDATE_QUERY = `
     FOR UPDATE
 `;
 
-export type GetGemsQueryResult = {
+export type GetGemAccountQueryResult = {
   id: string;
   user_id: string;
   balance: number;

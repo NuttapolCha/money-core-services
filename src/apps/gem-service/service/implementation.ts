@@ -9,29 +9,29 @@ export class ServiceImpl {
     this.writeRepo = writeRepo;
   }
 
-  public async viewGems(userId: string): Promise<number> {
+  public async viewGem(userId: string): Promise<number> {
     try {
-      const gems = await this.readRepo.getGemsByUserId(userId);
-      return gems.balance;
+      const gemAccount = await this.readRepo.getGemAccountByUserId(userId);
+      return gemAccount.balance;
     } catch (error) {
-      console.log("could not view gems because: ", error);
+      console.log("could not view gem because: ", error);
       throw error;
     }
   }
 
-  public async transferGems(
+  public async transferGem(
     fromUserId: string,
     toUserId: string,
     amount: number
   ): Promise<void> {
     try {
-      await this.writeRepo.createGemsTransferTransaction(
+      await this.writeRepo.createGemTransferTransaction(
         fromUserId,
         toUserId,
         amount
       );
     } catch (error) {
-      console.log("could not transfer gems because: ", error);
+      console.log("could not transfer gem because: ", error);
       throw error;
     }
   }

@@ -5,10 +5,10 @@
   "scripts": {
     "build:all": "npx tsc",
     "start:user": "node ./dist/apps/user-service/index.js",
-    "start:gems": "node ./dist/apps/gems-service/index.js",
+    "start:gem": "node ./dist/apps/gem-service/index.js",
     "start:transfer": "node ./dist/apps/transfer-service/index.js",
     "dev:user": "nodemon --watch ./src/apps/user-service --watch ./src/shared ./src/apps/user-service/index.ts",
-    "dev:gems": "nodemon --watch ./src/apps/gems-service --watch ./src/shared ./src/apps/gems-service/index.ts",
+    "dev:gem": "nodemon --watch ./src/apps/gem-service --watch ./src/shared ./src/apps/gem-service/index.ts",
     "dev:transfer": "nodemon --watch ./src/apps/transfer-service --watch ./src/shared ./src/apps/transfer-service/index.ts",
     "db:up": "docker compose -f docker-compose-db.yaml up -d",
     "db:down-volumes": "docker compose -f docker-compose-db.yaml down --volumes",

@@ -1,7 +1,7 @@
 import { v4 } from "uuid";
 import { GemLedgerEntry } from "./gemLedgerEntry";
 import { TransactionType } from "./transactionType";
-import { GemAccount } from "./gems";
+import { GemAccount } from "./gemAccount";
 
 export class GemTransaction {
   id: string;
