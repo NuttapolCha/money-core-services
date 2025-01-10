@@ -42,13 +42,19 @@ By the end of this guide, you are expecting to see services running on your loca
    cp .env.example .env
    ```
 
-2. Start services' dependencies. Currently we have only PostgreSQL
+2. Install dependencies
+
+   ```sh
+   npm install
+   ```
+
+3. Start services' dependencies. Currently we have only PostgreSQL
 
    ```sh
    docker compose -f docker-compose-db.yaml up -d
    ```
 
-3. Migrate schema so that your schema is up to date
+4. Migrate schema so that your schema is up to date
 
    ```sh
    npm run schema:up
@@ -60,7 +66,7 @@ By the end of this guide, you are expecting to see services running on your loca
    npm run schema:gen
    ```
 
-4. Start the desire service
+5. Start the desire service
 
    ```sh
    # run all services at the same time
@@ -73,7 +79,7 @@ By the end of this guide, you are expecting to see services running on your loca
    npm run dev:gem
    ```
 
-5. To drop the database and data
+6. To drop the database and data
 
    ```sh
    docker compose -f docker-compose-db.yaml down --volumes
