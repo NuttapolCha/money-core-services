@@ -12,9 +12,6 @@ export const config = {
     gem: {
       port: parseInt(process.env.GEM_SERVICE_PORT || "3020", 10),
     },
-    transfer: {
-      port: parseInt(process.env.TRANSFER_SERVICE_PORT || "3030", 10),
-    },
   },
   db: {
     writer: {
