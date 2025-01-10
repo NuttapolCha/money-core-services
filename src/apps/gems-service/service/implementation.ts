@@ -1,4 +1,3 @@
-import { GemsTransfer } from "../../../shared";
 import { ReadRepository, WriteRepository } from "../repository";
 
 export class ServiceImpl {
@@ -26,8 +25,11 @@ export class ServiceImpl {
     amount: number
   ): Promise<void> {
     try {
-      const gemsTransfer = new GemsTransfer(fromUserId, toUserId, amount);
-      await this.writeRepo.createGemsTransferTransaction(gemsTransfer);
+      await this.writeRepo.createGemsTransferTransaction(
+        fromUserId,
+        toUserId,
+        amount
+      );
     } catch (error) {
       console.log("could not transfer gems because: ", error);
       throw error;

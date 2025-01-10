@@ -1,9 +1,13 @@
 import { Pool } from "pg";
-import { config, GemAccounts, GemsTransfer } from "../../../shared";
+import { config, GemAccount } from "../../../shared";
 import { ReadRepositoryImpl, WriteRepositoryImpl } from "./implementation";
 
 export interface WriteRepository {
-  createGemsTransferTransaction(gemsTransfer: GemsTransfer): Promise<void>;
+  createGemsTransferTransaction(
+    fromUserId: string,
+    toUserId: string,
+    amount: number
+  ): Promise<void>;
 }
 
 export const newWriteRepository = (): WriteRepository => {
@@ -19,7 +23,7 @@ export const newWriteRepository = (): WriteRepository => {
 };
 
 export interface ReadRepository {
-  getGemsByUserId(userId: string): Promise<GemAccounts>;
+  getGemsByUserId(userId: string): Promise<GemAccount>;
 }
 
 export const newReadRepository = (): ReadRepository => {

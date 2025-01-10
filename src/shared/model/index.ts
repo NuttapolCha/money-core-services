@@ -1,4 +1,5 @@
+export * from "./gemLedgerEntry";
 export * from "./gems";
-export * from "./gemsTransfer";
-export * from "./user";
+export * from "./gemTransaction";
 export * from "./transactionType";
+export * from "./user";

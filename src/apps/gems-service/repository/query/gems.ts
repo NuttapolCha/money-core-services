@@ -1,12 +1,24 @@
+const GEM_ACCOUNTS_FIELDS_LIST = `
+  id,
+  user_id,
+  balance,
+  created_at,
+  updated_at
+`;
+
 export const GET_GEMS_BY_USER_ID_QUERY = `
     SELECT
-        id,
-        user_id,
-        balance,
-        created_at,
-        updated_at
+        ${GEM_ACCOUNTS_FIELDS_LIST}
     FROM gem_accounts
     WHERE user_id = $1
+`;
+
+export const SELECT_GEMS_FOR_UPDATE_QUERY = `
+    SELECT
+      ${GEM_ACCOUNTS_FIELDS_LIST}
+    FROM gem_accounts
+    WHERE user_id = $1 OR user_id = $2
+    FOR UPDATE
 `;
 
 export type GetGemsQueryResult = {
@@ -17,12 +29,13 @@ export type GetGemsQueryResult = {
   updated_at: Date;
 };
 
-export const UPDATE_GEMS = `
+export const UPDATE_GEM_ACCOUNT_QUERY = `
   UPDATE
     gem_accounts
   SET 
-    balance = $1,
-    updated_at = $2,
-    created_at = $3
-  WHERE id = $4
+    user_id = $2,
+    balance = $3,
+    created_at = $4,
+    updated_at = $5
+  WHERE id = $1
 `;

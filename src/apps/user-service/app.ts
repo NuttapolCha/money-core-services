@@ -29,6 +29,7 @@ export class App {
   private setupRoutes() {
     this.app.get("/healthz", (req, res) => {
       res.send("user service healthy");
+      return;
     });
 
     this.app.post("/users", async (req, res) => {
@@ -38,17 +39,17 @@ export class App {
         res
           .status(201)
           .send({ message: "user has been created", data: { user } });
+        return;
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });
+        return;
       }
     });
   }
 
   public serveAPI() {
     this.app.listen(config.services.user.port, () => {
-      console.log(
-        `server started at localhost:${config.services.user.port}`
-      );
+      console.log(`server started at localhost:${config.services.user.port}`);
     });
   }
 }

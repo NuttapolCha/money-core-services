@@ -12,7 +12,7 @@ export class WriteRepositoryImpl {
   public async createUser(user: User): Promise<void> {
     const client = await this.pool.connect();
     const userValues = user.toSqlValue();
-    const gemsValues = user.gems.toSqlValue();
+    const gemsValues = user.gemsAccount.toSqlValue();
 
     try {
       await client.query("BEGIN");

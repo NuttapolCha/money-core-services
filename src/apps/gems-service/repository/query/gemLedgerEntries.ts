@@ -1,4 +1,4 @@
-export const CREATE_GEM_LEDGER_ENTIRES = `
+export const CREATE_GEM_LEDGER_ENTIRES_QUERY = `
     INSERT INTO gem_ledger_entries
         (id, gem_transaction_id, gem_account_id, amount, created_at)
     VALUES
