@@ -14,6 +14,8 @@ CREATE TABLE gem_accounts (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE INDEX idx_gem_accounts_user_id on gem_accounts (user_id);
+
 CREATE TABLE gem_transactions (
     id CHAR(36) PRIMARY KEY,
     type varchar(31) NOT NULL,

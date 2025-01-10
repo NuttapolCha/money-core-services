@@ -1,16 +1,10 @@
 # Money Core Services
 
-Core economy system for the XXX game!
-
-## System Overview
-
 [API Endpoints](./docs/API.md)
-
-![Database Schema](./docs/dbdiagram.png)
 
 ## Completed Features
 
-- [x] Create new user with initial 1000 GEM
+- [x] Create new user with initial 1000 GEM (for convinence testing)
 - [x] Users able to transfer their GEM with double-entry book keeping methodology
 - [x] Users able to view their GEM account and balance
 - [x] Users able to view their transactions with pagination
@@ -21,7 +15,17 @@ Core economy system for the XXX game!
 
 - Requests validation and returning appropriate status code rather than always 500.
 - Authentication: clients will need to obtained access token before using the restricted API, currently we use `user-id` as the request header to identify who is making the request.
-- Event Broker: every transaction emits the event to the event broker which any services can be subsribe to and do whatever they want.
+
+## System Overview
+
+![System Overview](./docs/systemoverview.jpeg)
+![Database Schema](./docs/dbdiagram.png)
+
+## What Can Be Improved?
+
+- Database Partitioning for table `gem_transactions` to improve read performance because we are expecting a huge amount of transactions in the future.
+- Uses message queue to do non-critical operations which is not required strong consistency like transaction notification for example.
+- Uses Prometheus for monitoring system health and Loki for storing logs, use Grafana as UI.
 
 ## Development Setup
 
@@ -92,3 +96,5 @@ To run E2E test on your local machine, you will need 2 terminal sessions. One is
    ```sh
    npm run e2e
    ```
+
+**LIMITATION**: the test can only be run once, we can improve it later by shipping all tests and its dependency into the docker compose, run it and destroy it after finish.
