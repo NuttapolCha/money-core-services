@@ -10,7 +10,7 @@
 - [x] /me
 - [x] view gem account and balance
 - [x] gem transfer with double-entry book keeping
-- [ ] get transactions with pagination
+- [x] get transactions with pagination
 - [ ] logger with JSON structure
 - [ ] validate request and appropriate status code
 - [ ] autentication and middleware
