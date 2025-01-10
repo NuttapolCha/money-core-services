@@ -10,6 +10,7 @@ Core economy system for the XXX game!
 
 ## Completed Features
 
+- [x] Create new user with initial 1000 GEM
 - [x] Users able to transfer their GEM with double-entry book keeping methodology
 - [x] Users able to view their GEM account and balance
 - [x] Users able to view their transactions with pagination

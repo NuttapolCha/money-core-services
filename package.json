@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "e2e": "vitest run ./src/e2e",
     "build:all": "npx tsc",
     "start:user": "APP_NAME=user-service NODE_ENV=production node ./dist/apps/user-service/index.js",
     "start:gem": "APP_NAME=gem-service NODE_ENV=production node ./dist/apps/gem-service/index.js",
@@ -11,7 +12,8 @@
     "db:up": "docker compose -f docker-compose-db.yaml up -d",
     "db:down-volumes": "docker compose -f docker-compose-db.yaml down --volumes",
     "schema:gen": "ts-node ./src/cmd/schemaGen.ts",
-    "schema:up": "ts-node ./src/cmd/schemaUp.ts"
+    "schema:up": "ts-node ./src/cmd/schemaUp.ts",
+    "db:reset": "npm run db:down-volumes && npm run db:up && sleep 3 && npm run schema:up"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,7 @@
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   }
 }
