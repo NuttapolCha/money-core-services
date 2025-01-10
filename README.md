@@ -1,6 +1,11 @@
 # Money Core Services
 
-[API Endpoints](./docs/API.md)
+- [Completed Features](#completed-features)
+- [Developing Features](#developing-features)
+- [System Overview](#system-overview)
+- [What Can Be Improved?](#what-can-be-improved)
+- [Development Setup](#development-setup)
+- [E2E Tests](#e2e-tests)
 
 ## Completed Features
 
@@ -51,7 +56,7 @@ By the end of this guide, you are expecting to see services running on your loca
 3. Start services' dependencies. Currently we have only PostgreSQL
 
    ```sh
-   docker compose -f docker-compose-db.yaml up -d
+   npm run db:up
    ```
 
 4. Migrate schema so that your schema is up to date
@@ -79,10 +84,12 @@ By the end of this guide, you are expecting to see services running on your loca
    npm run dev:gem
    ```
 
+   Then you can explore the [API Endpoints](./docs/API.md). If you have no idea what to call first, we recommend you to run the [E2E Tests](#e2e-tests) to see the application flows
+
 6. To drop the database and data
 
    ```sh
-   docker compose -f docker-compose-db.yaml down --volumes
+   npm run db:down-volumes
    ```
 
 ## E2E Tests
