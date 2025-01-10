@@ -127,7 +127,7 @@ export class ReadRepositoryImpl {
       // result rows should have length of 1
       return new GemAccount(userId, {
         id: rows[0].id,
-        balance: rows[0].balance,
+        balance: Number(rows[0].balance),
         createdAt: rows[0].created_at,
         updatedAt: rows[0].updated_at,
       });

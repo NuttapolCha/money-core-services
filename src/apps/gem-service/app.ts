@@ -41,7 +41,7 @@ export class App {
 
       try {
         const balance = await this.service.viewGem(userId);
-        res.send({ message: "success", data: { gem: balance } });
+        res.send({ message: "success", data: { balance } });
         return;
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });
