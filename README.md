@@ -1,8 +1,10 @@
 # money-core-services
 
-## Database Diagram
+## System Overview
 
-![Database Diagram](./docs/dbdiagram.png)
+[API Endpoints](./docs/API.md)
+
+![Database Schema](./docs/dbdiagram.png)
 
 ## Features
 
@@ -13,6 +15,8 @@
 - [x] get transactions with pagination
 - [x] logger with JSON structure
 - [ ] E2E tests
+
+## Comming Soon
+
 - [ ] validate request and appropriate status code
 - [ ] autentication and middleware
-
