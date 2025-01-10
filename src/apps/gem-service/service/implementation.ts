@@ -16,7 +16,6 @@ export class ServiceImpl {
       const gemAccount = await this.readRepo.getGemAccountByUserId(userId);
       return gemAccount;
     } catch (error) {
-      console.log("could not view gem because: ", error);
       throw error;
     }
   }
@@ -32,7 +31,6 @@ export class ServiceImpl {
       );
       return transactions;
     } catch (error) {
-      console.log("could not view gem transactions because: ", error);
       throw error;
     }
   }
@@ -49,7 +47,6 @@ export class ServiceImpl {
         amount
       );
     } catch (error) {
-      console.log("could not transfer gem because: ", error);
       throw error;
     }
   }

@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import { newReadRepository, newWriteRepository } from "./repository";
-import { config } from "../../shared";
+import { config, logger } from "../../shared";
 import bodyParser from "body-parser";
 import { newService, Service } from "./service";
 import { TransferGemRequest } from "./types";
@@ -36,6 +36,9 @@ export class App {
     this.app.get("/balance", async (req, res) => {
       const userId = req.headers["user-id"] as string;
       if (!userId) {
+        logger.error("unauthorized for GET /balance", {
+          requestHeader: req.headers,
+        });
         res.status(401).send({ messsage: "user-id is required in header" });
         return;
       }
@@ -48,6 +51,11 @@ export class App {
         });
         return;
       } catch (error) {
+        logger.error("error occurred in GET /balance", {
+          error,
+          userId,
+          requestHeader: req.headers,
+        });
         res.status(500).send({ message: "something went wrong" });
         return;
       }
@@ -56,12 +64,14 @@ export class App {
     this.app.get("/transactions", async (req, res) => {
       const userId = req.headers["user-id"] as string;
       if (!userId) {
+        logger.error("unauthorized for GET /transactions", {
+          requestHeader: req.headers,
+        });
         res.status(401).send({ messsage: "user-id is required in header" });
         return;
       }
 
       const pagination = Pagination.FromRequest(req);
-      console.log("pagination =", pagination);
       try {
         const transactions = await this.service.viewGemTransactions(
           userId,
@@ -73,6 +83,11 @@ export class App {
           pagination: pagination.toResponse(),
         });
       } catch (error) {
+        logger.error("error occurred in GET /transactions", {
+          error,
+          userId,
+          requestHeader: req.headers,
+        });
         res.status(500).send({ message: "something went wrong" });
         return;
       }
@@ -81,12 +96,22 @@ export class App {
     this.app.post("/transfer-gem", async (req, res) => {
       const userId = req.headers["user-id"] as string;
       if (!userId) {
+        logger.error("unauthorized for POST /transfer-gem", {
+          requestHeader: req.headers,
+        });
         res.status(401).send({ messsage: "user-id is required in header" });
         return;
       }
 
       const { toUserId, amount } = req.body as TransferGemRequest;
       if (amount <= 0) {
+        logger.info(
+          `user trying to transfer ${amount} gem which is not allowed`,
+          {
+            userId,
+            requestHeader: req.headers,
+          }
+        );
         res
           .status(422)
           .send({ message: "transfer amount must be greater than 0" });
@@ -98,6 +123,11 @@ export class App {
         res.status(200).send({ message: "success" });
         return;
       } catch (error) {
+        logger.error("error occurred in POST /transfer-gem", {
+          error,
+          userId,
+          requestHeader: req.headers,
+        });
         res.status(500).send({ message: "something went wrong" });
         return;
       }
@@ -106,7 +136,7 @@ export class App {
 
   public serveAPI() {
     this.app.listen(config.services.gem.port, () => {
-      console.log(`server started at localhost:${config.services.gem.port}`);
+      logger.info(`server started at localhost:${config.services.gem.port}`);
     });
   }
 }

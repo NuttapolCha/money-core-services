@@ -7,8 +7,8 @@
     "start:user": "node ./dist/apps/user-service/index.js",
     "start:gem": "node ./dist/apps/gem-service/index.js",
     "start:transfer": "node ./dist/apps/transfer-service/index.js",
-    "dev:user": "nodemon --watch ./src/apps/user-service --watch ./src/shared ./src/apps/user-service/index.ts",
-    "dev:gem": "nodemon --watch ./src/apps/gem-service --watch ./src/shared ./src/apps/gem-service/index.ts",
+    "dev:user": "APP_NAME=user-service nodemon --watch ./src/apps/user-service --watch ./src/shared ./src/apps/user-service/index.ts",
+    "dev:gem": "APP_NAME=gem-service nodemon --watch ./src/apps/gem-service --watch ./src/shared ./src/apps/gem-service/index.ts",
     "dev:transfer": "nodemon --watch ./src/apps/transfer-service --watch ./src/shared ./src/apps/transfer-service/index.ts",
     "db:up": "docker compose -f docker-compose-db.yaml up -d",
     "db:down-volumes": "docker compose -f docker-compose-db.yaml down --volumes",
@@ -20,11 +20,13 @@
   "license": "ISC",
   "dependencies": {
     "@types/pg": "^8.11.10",
+    "@types/winston": "^2.4.4",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "pg": "^8.13.1",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

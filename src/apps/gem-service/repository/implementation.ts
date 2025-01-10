@@ -60,7 +60,6 @@ export class WriteRepositoryImpl {
 
       await client.query("COMMIT");
     } catch (error) {
-      console.log("transaction roll back");
       await client.query("ROLLBACK");
       throw error;
     } finally {
@@ -85,7 +84,6 @@ export class WriteRepositoryImpl {
     );
     for (const row of rows) {
       if (row.user_id === fromUserId) {
-        console.log("sender account row.balance =", row.balance);
         senderAccount = new GemAccount(row.user_id, {
           id: row.id,
           balance: Number(row.balance),

@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const config = {
+  appName: process.env.APP_NAME || "unknown-app-name",
+  nodeEnv: process.env.NODE_ENV || "production",
   services: {
     user: {
       port: parseInt(process.env.USER_SERVICE_PORT || "3010", 10),
