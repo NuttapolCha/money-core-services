@@ -1,6 +1,7 @@
 import { Pool } from "pg";
 import { config, GemAccount } from "../../../shared";
 import { ReadRepositoryImpl, WriteRepositoryImpl } from "./implementation";
+import { Pagination, UserTransaction } from "../../../shared/view";
 
 export interface WriteRepository {
   createGemTransferTransaction(
@@ -24,6 +25,10 @@ export const newWriteRepository = (): WriteRepository => {
 
 export interface ReadRepository {
   getGemAccountByUserId(userId: string): Promise<GemAccount>;
+  viewGemTransactions(
+    userId: string,
+    pagination: Pagination
+  ): Promise<UserTransaction[]>;
 }
 
 export const newReadRepository = (): ReadRepository => {

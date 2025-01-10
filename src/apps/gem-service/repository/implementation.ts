@@ -7,7 +7,12 @@ import {
   SELECT_GEM_ACCOUNTS_FOR_UPDATE_QUERY,
   UPDATE_GEM_ACCOUNT_QUERY,
 } from "./query";
-import { CREATE_GEM_LEDGER_ENTIRES_QUERY } from "./query/gemLedgerEntries";
+import {
+  CREATE_GEM_LEDGER_ENTIRES_QUERY,
+  GET_ENTRIES_BY_USER_ID_QUERY,
+  GetEntriesByUserIdQueryResult,
+} from "./query/gemLedgerEntries";
+import { Pagination, UserTransaction } from "../../../shared/view";
 
 export class WriteRepositoryImpl {
   private pool: Pool;
@@ -139,5 +144,36 @@ export class ReadRepositoryImpl {
       await client.query("ROLLBACK");
       client.release();
     }
+  }
+
+  public async viewGemTransactions(
+    userId: string,
+    pagination: Pagination
+  ): Promise<UserTransaction[]> {
+    const userTransactions: UserTransaction[] = [];
+    const client = await this.pool.connect();
+    try {
+      await client.query("BEGIN");
+      const { rows } = await client.query<GetEntriesByUserIdQueryResult>(
+        GET_ENTRIES_BY_USER_ID_QUERY,
+        [userId, pagination.getLimit(), pagination.getOffset()]
+      );
+      for (const row of rows) {
+        userTransactions.push({
+          transactionId: row.gem_transaction_id,
+          amount: Number(row.amount),
+          timestamp: row.created_at,
+        });
+        pagination.setTotal(Number(row.total));
+      }
+
+      // no need to commit read only transaction
+    } catch (error) {
+      throw error;
+    } finally {
+      await client.query("ROLLBACK");
+      client.release();
+    }
+    return userTransactions;
   }
 }

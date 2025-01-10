@@ -4,6 +4,7 @@ import { config } from "../../shared";
 import bodyParser from "body-parser";
 import { newService, Service } from "./service";
 import { TransferGemRequest } from "./types";
+import { Pagination } from "../../shared/view";
 
 export class App {
   private app: Application;
@@ -46,6 +47,31 @@ export class App {
           data: account.toResponse(),
         });
         return;
+      } catch (error) {
+        res.status(500).send({ message: "something went wrong" });
+        return;
+      }
+    });
+
+    this.app.get("/transactions", async (req, res) => {
+      const userId = req.headers["user-id"] as string;
+      if (!userId) {
+        res.status(401).send({ messsage: "user-id is required in header" });
+        return;
+      }
+
+      const pagination = Pagination.FromRequest(req);
+      console.log("pagination =", pagination);
+      try {
+        const transactions = await this.service.viewGemTransactions(
+          userId,
+          pagination
+        );
+        res.status(200).send({
+          message: "success",
+          data: transactions,
+          pagination: pagination.toResponse(),
+        });
       } catch (error) {
         res.status(500).send({ message: "something went wrong" });
         return;

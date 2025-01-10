@@ -1,4 +1,5 @@
 import { GemAccount } from "../../../shared";
+import { Pagination, UserTransaction } from "../../../shared/view";
 import { ReadRepository, WriteRepository } from "../repository";
 
 export class ServiceImpl {
@@ -16,6 +17,22 @@ export class ServiceImpl {
       return gemAccount;
     } catch (error) {
       console.log("could not view gem because: ", error);
+      throw error;
+    }
+  }
+
+  public async viewGemTransactions(
+    userId: string,
+    pagination: Pagination
+  ): Promise<UserTransaction[]> {
+    try {
+      const transactions = await this.readRepo.viewGemTransactions(
+        userId,
+        pagination
+      );
+      return transactions;
+    } catch (error) {
+      console.log("could not view gem transactions because: ", error);
       throw error;
     }
   }
