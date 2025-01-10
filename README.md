@@ -8,20 +8,19 @@ Core economy system for the XXX game!
 
 ![Database Schema](./docs/dbdiagram.png)
 
-## Features
+## Completed Features
 
-- [x] create user
-- [x] /me
-- [x] view gem account and balance
-- [x] gem transfer with double-entry book keeping
-- [x] get transactions with pagination
-- [x] logger with JSON structure
+- [x] Users able to transfer their GEM with double-entry book keeping methodology
+- [x] Users able to view their GEM account and balance
+- [x] Users able to view their transactions with pagination
+- [x] Logger with JSON structure on production environment (simple colorized for local development)
 - [ ] E2E tests
 
-## Comming Soon
+## Developing Features
 
-- [ ] validate request and appropriate status code
-- [ ] autentication and middleware
+- Requests validation and returning appropriate status code rather than always 500.
+- Authentication: clients will need to obtained access token before using the restricted API, currently we use `user-id` as the request header to identify who is making the request.
+- Event Broker: every transaction emits the event to the event broker which any services can be subsribe to and do whatever they want.
 
 ## Development Setup
 
