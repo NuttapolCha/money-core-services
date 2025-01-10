@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "e2e": "vitest run ./src/e2e",
     "build:all": "npx tsc",
     "start:user": "APP_NAME=user-service NODE_ENV=production node ./dist/apps/user-service/index.js",
     "start:gem": "APP_NAME=gem-service NODE_ENV=production node ./dist/apps/gem-service/index.js",
+    "dev": "concurrently \"npm run dev:user\" \"npm run dev:gem\"",
+    "dev-with-reset": "npm run db:reset && npm run dev",
     "dev:user": "APP_NAME=user-service nodemon --watch ./src/apps/user-service --watch ./src/shared ./src/apps/user-service/index.ts",
     "dev:gem": "APP_NAME=gem-service nodemon --watch ./src/apps/gem-service --watch ./src/shared ./src/apps/gem-service/index.ts",
     "db:up": "docker compose -f docker-compose-db.yaml up -d",
     "db:down-volumes": "docker compose -f docker-compose-db.yaml down --volumes",
+    "db:reset": "npm run db:down-volumes && npm run db:up && sleep 3 && npm run schema:up",
     "schema:gen": "ts-node ./src/cmd/schemaGen.ts",
     "schema:up": "ts-node ./src/cmd/schemaUp.ts",
-    "db:reset": "npm run db:down-volumes && npm run db:up && sleep 3 && npm run schema:up"
+    "e2e": "vitest run ./src/e2e"
   },
   "keywords": [],
   "author": "",

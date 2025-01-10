@@ -15,7 +15,7 @@ Core economy system for the XXX game!
 - [x] Users able to view their GEM account and balance
 - [x] Users able to view their transactions with pagination
 - [x] Logger with JSON structure on production environment (simple colorized for local development)
-- [ ] E2E tests
+- [x] E2E tests
 
 ## Developing Features
 
@@ -59,10 +59,13 @@ By the end of this guide, you are expecting to see services running on your loca
 4. Start the desire service
 
    ```sh
-   # for user-service
+   # run all services at the same time
+   npm run dev
+
+   # run only user-service
    npm run dev:user
 
-   # for gem-service
+   # run only gem-service
    npm run dev:gem
    ```
 
@@ -70,4 +73,22 @@ By the end of this guide, you are expecting to see services running on your loca
 
    ```sh
    docker compose -f docker-compose-db.yaml down --volumes
+   ```
+
+## E2E Tests
+
+> Caveat: by following this guide, the data on your local database will be dropped. We can improve it later by split dev database and test database
+
+To run E2E test on your local machine, you will need 2 terminal sessions. One is for the services and another one is for test script
+
+1. Reset database and start services
+
+   ```sh
+   npm run dev-with-reset
+   ```
+
+2. Run E2E script
+
+   ```sh
+   npm run e2e
    ```
